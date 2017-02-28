@@ -1,41 +1,3 @@
-var products = [{
-  sku: 'ssct-1',
-  name: "Swarovski Studded Crop Top",
-  description: "Swarovski-studded crop top.  Perfect for a night out on the town.",
-  price: 72,
-  image: "swarovski-studded-top.jpg",
-  getImage: function(){
-    return "img/"+this.image
-  },
-  getPrice: function(){
-    return "$"+parseFloat(this.price).toFixed(2)
-  }
-},{
-  sku: 'cs-74',
-  name: "Converse sneakers",
-  description: "Classic!",
-  price: 50,
-  image: "converse.jpg",
-  getImage: function(){
-    return "img/"+this.image
-  },
-  getPrice: function(){
-    return "$"+parseFloat(this.price).toFixed(2)
-  }
-},{
-  sku: 'rlx-2k17',
-  name: "Really Nice Watch",
-  description: "This watch is awesome!  It does lots of things, including telling the time!",
-  price: 3000,
-  image: "rolex-watch.jpg",
-  getImage: function(){
-    return "img/"+this.image
-  },
-  getPrice: function(){
-    return "$"+parseFloat(this.price).toFixed(2)
-  }
-}]
-
 var taxPercentage = .13
 var cart = {
   products: {},
@@ -53,23 +15,18 @@ var cart = {
   }
 }
 
+// references to our dom elemeents for updating
 var productList = document.getElementById('products')
 var cartDisplay = document.getElementById('cart-items')
 
 function buildCart(products){
   products.map(function(product){
-    var html = productHtml
-    html = html
-      .replace(/{{name}}/, product.name)
-      .replace(/{{description}}/g, product.description)
-      .replace(/{{image}}/, product.getImage())
-      .replace(/{{price}}/, product.getPrice())
-      .replace(/{{sku}}/, product.sku)
+    //
+    //
+    // add each product to the product list on the page
+    //
+    //
 
-    var li = document.createElement('li')
-    li.className = 'product'
-    li.innerHTML = html
-    productList.appendChild(li)
   })
 }
 buildCart(products)
@@ -81,7 +38,12 @@ var btnArray = document.getElementsByClassName('btn')
 var numberOfButtons = btnArray.length
 for( var i=0; i<numberOfButtons; i++ ){
   var btn = btnArray.item(i)
-  btn.addEventListener('click', addToCart)
+    //
+    //
+    // add an event listener for click events on our buy now buttons
+    //
+    //
+    
 }
 
 
@@ -91,16 +53,13 @@ function addToCart(e){
   var parts = href.split('/')
   var sku = parts.pop()  // ** modifies the "parts" array...
 
+  //
+  //
   // check to see if this item is already in our cart...
-  if( cart.products[sku] ){
-    cart.products[sku].quantity++
-  } else {
-    var product = products.filter(function(item){
-      return item.sku === sku
-    }).shift()
-    product.quantity = 1
-    cart.products[sku] = product
-  }
+  //
+  // NOTE: we will need to add a "quantity" attribute
+  // to products in the cart
+  //
 
   var totalItems = updateCartDisplay()
   cartDisplay.innerHTML = totalItems
@@ -128,8 +87,6 @@ function updateCartDisplay(){
     console.log('item:', item)
     totalItems += item.quantity
   })
-
-  console.log('total:', totalItems)
 
   return totalItems
 }
