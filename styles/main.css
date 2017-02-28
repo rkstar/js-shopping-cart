@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+header {
+  width: 100vw;
+  height: 60px;
+  background-color: #2f2f2f;
+  color: white;
+  text-align: center;
+  position: fixed;
+  z-index: 10;
+  padding: 0 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-title {
+  flex: 1 0 auto;
+  font-size: 1.5em;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-indicator {
+  flex: 1 0 auto;
+}
+
+.item-count {
+  font-weight: 700;
+  font-size: 1.25em;
+}
+
+
+.products {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+  top: 60px; /* we need this to offset the fixed header */
+  width: 95vw;
+  margin: 0 auto;
+}
+
+.product {
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0%;
+  width: 100%;
+  min-width: 100%;
+  /*min-width: 400px;*/
+  border-radius: 10%;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px #999;
+  padding: 1em;
+  margin: 1em;
+}
+
+.product-title {
+  font-weight: 400;
+  font-size: 2em;
+}
+.product-description {
+  font-weight: 300;
+}
+
+.product-image {
+  border-radius: 10%;
+  max-width: 100%;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+@media (min-width: 720px){
+  .product {
+    width: 30%;
+    min-width: 30%;
+  }
+}

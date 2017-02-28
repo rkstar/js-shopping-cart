@@ -1,0 +1,5 @@
+var productHtml = "<h1 class='product-title'>{{name}}</h1>"
+productHtml += "<h2 class='product-description'>{{description}}</h2>"
+productHtml += "<img src='{{image}}' alt='{{description}}' class='product-image'>"
+productHtml += "<p>Price: {{price}}</p>"
+productHtml += "<p><a href='{{sku}}' class='btn'>buy now!</a></p>"
