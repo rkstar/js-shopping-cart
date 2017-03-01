@@ -100,7 +100,7 @@ function calculateCartTotal(){
   var subtotal = 0
   var productList = getProductsFromCart()
   productList.map(function(item){
-    subtotal += item.price
+    subtotal += item.price * item.quantity
   })
 
   var tax = subtotal * taxPercentage
