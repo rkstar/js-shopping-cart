@@ -15,18 +15,23 @@ var cart = {
   }
 }
 
-// references to our dom elemeents for updating
 var productList = document.getElementById('products')
 var cartDisplay = document.getElementById('cart-items')
 
 function buildCart(products){
   products.map(function(product){
-    //
-    //
-    // add each product to the product list on the page
-    //
-    //
+    var html = productHtml
+    html = html
+      .replace(/{{name}}/, product.name)
+      .replace(/{{description}}/g, product.description)
+      .replace(/{{image}}/, product.getImage())
+      .replace(/{{price}}/, product.getPrice())
+      .replace(/{{sku}}/, product.sku)
 
+    var li = document.createElement('li')
+    li.className = 'product'
+    li.innerHTML = html
+    productList.appendChild(li)
   })
 }
 buildCart(products)
@@ -38,12 +43,7 @@ var btnArray = document.getElementsByClassName('btn')
 var numberOfButtons = btnArray.length
 for( var i=0; i<numberOfButtons; i++ ){
   var btn = btnArray.item(i)
-    //
-    //
-    // add an event listener for click events on our buy now buttons
-    //
-    //
-    
+  btn.addEventListener('click', addToCart)
 }
 
 
@@ -53,13 +53,16 @@ function addToCart(e){
   var parts = href.split('/')
   var sku = parts.pop()  // ** modifies the "parts" array...
 
-  //
-  //
   // check to see if this item is already in our cart...
-  //
-  // NOTE: we will need to add a "quantity" attribute
-  // to products in the cart
-  //
+  if( cart.products[sku] ){
+    cart.products[sku].quantity++
+  } else {
+    var product = products.filter(function(item){
+      return item.sku === sku
+    }).shift()
+    product.quantity = 1
+    cart.products[sku] = product
+  }
 
   var totalItems = updateCartDisplay()
   cartDisplay.innerHTML = totalItems
@@ -87,6 +90,8 @@ function updateCartDisplay(){
     console.log('item:', item)
     totalItems += item.quantity
   })
+
+  console.log('total:', totalItems)
 
   return totalItems
 }
