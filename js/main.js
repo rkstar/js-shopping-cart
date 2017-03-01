@@ -15,10 +15,10 @@ var cart = {
   }
 }
 
-var productList = document.getElementById('products')
-var cartDisplay = document.getElementById('cart-items')
+$productList = $('#products')
+$cartDisplay = $('#cart-items')
 
-function buildCart(products){
+$(function(){
   products.map(function(product){
     var html = productHtml
     html = html
@@ -28,23 +28,33 @@ function buildCart(products){
       .replace(/{{price}}/, product.getPrice())
       .replace(/{{sku}}/, product.sku)
 
-    var li = document.createElement('li')
-    li.className = 'product'
-    li.innerHTML = html
-    productList.appendChild(li)
+    var $li = $('<li>')
+    $li.html(html).addClass('product')
+    $productList.append($li)
   })
-}
-buildCart(products)
+
+  $('a.btn').on('click', addToCart)
+})
 
 
 // get our list of buttons on the page
 // and then iterate over them to add event listeners to the buttons
-var btnArray = document.getElementsByClassName('btn')
-var numberOfButtons = btnArray.length
-for( var i=0; i<numberOfButtons; i++ ){
-  var btn = btnArray.item(i)
-  btn.addEventListener('click', addToCart)
-}
+
+// OLD WAY....
+// var btnArray = document.getElementsByClassName('btn')
+// var numberOfButtons = $btnArray.length
+// for( var i=0; i<numberOfButtons; i++ ){
+//   var btn = btnArray.item(i)
+//   btn.addEventListener('click', addToCart)
+// }
+//
+// NEW WAY!!
+// ......
+// NOTE!!!!!
+// ....... you MUST put this code into the $(function(){}) block
+// above or else the '.btn' objects may not be available when this
+// code is run.  ** <-- common problem.
+// $('a.btn').on('click', addToCart)
 
 
 function addToCart(e){
@@ -65,7 +75,7 @@ function addToCart(e){
   }
 
   var totalItems = updateCartDisplay()
-  cartDisplay.innerHTML = totalItems
+  $cartDisplay.html(totalItems)
 
   var money = calculateCartTotal()
   cart.subtotal = money.subtotal
@@ -87,11 +97,8 @@ function updateCartDisplay(){
   var productList = getProductsFromCart()
   var totalItems = 0
   productList.map(function(item){
-    console.log('item:', item)
     totalItems += item.quantity
   })
-
-  console.log('total:', totalItems)
 
   return totalItems
 }
