@@ -18,22 +18,19 @@ var cart = {
 $productList = $('#products')
 $cartDisplay = $('#cart-items')
 
-$(function(){
-  products.map(function(product){
-    var html = productHtml
-    html = html
-      .replace(/{{name}}/, product.name)
-      .replace(/{{description}}/g, product.description)
-      .replace(/{{image}}/, product.getImage())
-      .replace(/{{price}}/, product.getPrice())
-      .replace(/{{sku}}/, product.sku)
+products.map(function(product){
+  var html = productHtml
+  html = html
+    .replace(/{{name}}/, product.name)
+    .replace(/{{description}}/g, product.description)
+    .replace(/{{image}}/, product.getImage())
+    .replace(/{{price}}/, product.getPrice())
+    .replace(/{{priceCSS}}/, product.getPriceCSS())
+    .replace(/{{sku}}/, product.sku)
 
-    var $li = $('<li>')
-    $li.html(html).addClass('product')
-    $productList.append($li)
-  })
-
-  $('a.btn').on('click', addToCart)
+  var $li = $("<li>")
+  $li.html(html).addClass('product')
+  $productList.append($li)
 })
 
 
@@ -41,12 +38,12 @@ $(function(){
 // and then iterate over them to add event listeners to the buttons
 
 // OLD WAY....
-// var btnArray = document.getElementsByClassName('btn')
-// var numberOfButtons = $btnArray.length
-// for( var i=0; i<numberOfButtons; i++ ){
-//   var btn = btnArray.item(i)
-//   btn.addEventListener('click', addToCart)
-// }
+var btnArray = document.getElementsByClassName('btn')
+var numberOfButtons = btnArray.length
+for( var i=0; i<numberOfButtons; i++ ){
+  var btn = btnArray.item(i)
+  btn.addEventListener('click', addToCart)
+}
 //
 // NEW WAY!!
 // ......
@@ -54,7 +51,6 @@ $(function(){
 // ....... you MUST put this code into the $(function(){}) block
 // above or else the '.btn' objects may not be available when this
 // code is run.  ** <-- common problem.
-// $('a.btn').on('click', addToCart)
 
 
 function addToCart(e){
@@ -81,6 +77,9 @@ function addToCart(e){
   cart.subtotal = money.subtotal
   cart.tax = money.tax
   cart.total = money.total
+
+
+  // animate the item count...
 }
 
 function getProductsFromCart(){
@@ -119,3 +118,10 @@ function calculateCartTotal(){
     total: total
   }
 }
+
+
+
+
+
+
+
