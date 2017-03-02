@@ -1,3 +1,9 @@
+$(document).ready(function(){
+
+
+  // this function is run WHEN THE DOM
+  // IS COMPLETELY LOADED AND FUNCTIONAL.
+
 var taxPercentage = .13
 var cart = {
   products: {},
@@ -38,19 +44,16 @@ products.map(function(product){
 // and then iterate over them to add event listeners to the buttons
 
 // OLD WAY....
-var btnArray = document.getElementsByClassName('btn')
-var numberOfButtons = btnArray.length
-for( var i=0; i<numberOfButtons; i++ ){
-  var btn = btnArray.item(i)
-  btn.addEventListener('click', addToCart)
-}
+// var btnArray = document.getElementsByClassName('btn')
+// var numberOfButtons = btnArray.length
+// for( var i=0; i<numberOfButtons; i++ ){
+//   var btn = btnArray.item(i)
+//   btn.addEventListener('click', addToCart)
+// }
 //
 // NEW WAY!!
 // ......
-// NOTE!!!!!
-// ....... you MUST put this code into the $(function(){}) block
-// above or else the '.btn' objects may not be available when this
-// code is run.  ** <-- common problem.
+$('.btn').on('click', addToCart)
 
 
 function addToCart(e){
@@ -79,7 +82,33 @@ function addToCart(e){
   cart.total = money.total
 
 
+  //
+  //
   // animate the item count...
+  //
+  //
+  var originalCSSProperties = {
+    fontSize: '1.25em'
+  }
+  var cssPropertiesToAnimateTo = {
+    fontSize: '6em'
+  }
+  // var options = {
+  //   done: function(){
+  //     $(this).animate(originalCSSProperties)
+  //   }
+  // }
+  var duration = 400
+  $cartDisplay
+    .animate(cssPropertiesToAnimateTo, duration)
+    .delay(duration)
+    .animate(originalCSSProperties, duration)
+
+
+  // $cartDisplay.addClass('item-added')
+  // setTimeout(function(){
+  //   $cartDisplay.removeClass('item-added')
+  // }, 400)
 }
 
 function getProductsFromCart(){
@@ -119,9 +148,4 @@ function calculateCartTotal(){
   }
 }
 
-
-
-
-
-
-
+})
